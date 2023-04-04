@@ -9,8 +9,9 @@ class CartsController < ActionController::Base
   def create
     status = []
     params[:carts].each do |cart_params|
+      byebug
       cart = Cart.new(permited_params(cart_params))
-      status << (cart.save ? cart :cart.errors)
+      status << (cart.save ? cart : cart.errors)
     end
 
     render json: status
@@ -39,6 +40,6 @@ class CartsController < ActionController::Base
   private
 
   def permited_params(params)
-    params.permit(:id, items_attributes: [:article_id, :quantity])
+    params.permit(item_attributes: [:article_id, :quantity])
   end
 end
