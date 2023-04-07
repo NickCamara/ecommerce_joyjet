@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   resources :articles
 
   resources :items
+
+  resources :delivery_fees
+
+  resources :eligible_transaction_volumes
 end

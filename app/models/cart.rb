@@ -7,8 +7,12 @@ class Cart < ActiveRecord::Base
 
   def set_total
     if self.items.size > 0
-      price = self.items.sum(&:value)
-      update_column(:total, price)
+      amount = self.items.sum(&:value)
+      if amount > 0 
+        price = EligibleTransactionVolume.where("min_price <= ? and max_price >= ?", amount, amount).last.delivery_fee.try(:price)
+        amount = amount + price
+      end
+      update_column(:total, amount)
     end
   end
 end
