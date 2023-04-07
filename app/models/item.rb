@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
-  belongs_to :article
-  belongs_to :cart
+  belongs_to :article, optional: true
+  belongs_to :cart,  optional: true
 
   after_create :set_value
 

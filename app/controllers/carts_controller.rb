@@ -9,8 +9,10 @@ class CartsController < ActionController::Base
   def create
     status = []
     params[:carts].each do |cart_params|
-      byebug
-      cart = Cart.new(permited_params(cart_params))
+      cart = Cart.new
+      cart_params[:items].each do |item_params|
+        cart.items.build(article_id: item_params[:article_id], quantity: item_params[:quantity])
+      end
       status << (cart.save ? cart : cart.errors)
     end
 
@@ -40,6 +42,6 @@ class CartsController < ActionController::Base
   private
 
   def permited_params(params)
-    params.permit(item_attributes: [:article_id, :quantity])
+    params.permit(items_attributes: [:article_id, :quantity])
   end
 end

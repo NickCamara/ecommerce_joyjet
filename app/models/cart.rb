@@ -8,7 +8,7 @@ class Cart < ActiveRecord::Base
   def set_total
     if self.items.size > 0
       price = self.items.sum(&:value)
-      update_column(:total, value)
+      update_column(:total, price)
     end
   end
 end
